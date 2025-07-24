@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Greetings for Sera</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffe8f5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .card-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .card {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            transform-style: preserve-3d;
+            transition: all 1s ease;
+            cursor: pointer;
+        }
+        
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+        
+        .card-front {
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+            color: white;
+            text-align: center;
+        }
+        
+        .card-back {
+            background: white;
+            transform: rotateY(180deg);
+            text-align: center;
+        }
+        
+        .sunflower {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+        
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .flowers {
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .flower {
+            font-size: 24px;
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        .flower:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .tap-text {
+            position: absolute;
+            bottom: 10px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        .signature {
+            margin-top: 30px;
+            font-style: italic;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffcc00;
+            opacity: 0;
+            border-radius: 50%;
+        }
+        
+        @media (max-width: 600px) {
+            .card {
+                height: auto;
+                min-height: 500px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container" id="cardContainer">
+        <div class="card" id="card">
+            <div class="card-face card-front">
+                <div class="sunflower">🌻</div>
+                <h1>Happy Birthday<br>Sera!</h1>
+                <p>Tap to open your special message</p>
+                <div class="tap-text">Tap anywhere to open card</div>
+                <div class="flowers">
+                    <div class="flower">🌷</div>
+                    <div class="flower">🌸</div>
+                </div>
+            </div>
+            <div class="card-face card-back">
+                <h1>🌻 Pesan Ulang Tahun untuk Sera</h1>
+                <br>
+                <p>Selamat ulang tahun, Ra!</p>
+                <p>Di usiamu yang baru ini, semoga dunia terasa sedikit lebih ramah, dan langit lebih sering cerah. Semoga apa yang kamu perjuangkan perlahan-lahan menemukan jalannya, dan segala yang kamu doakan diam-diam, dijawab Tuhan dengan cara yang paling indah.</p>
+                <p>Terima kasih sudah menjadi Sera yang hangat, kuat, dan penuh warna. Teruslah jadi versi terbaik dirimu, tapi jangan lupa istirahat dan mencintai diri sendiri juga.</p>
+                <p>Selamat bertumbuh. I always pray for the best for you.</p>
+                <div class="flower" style="margin-top: 20px;">🌷</div>
+                <div class="signature">With love</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const card = document.getElementById('card');
+            const cardContainer = document.getElementById('cardContainer');
+            
+            // Flip card on click/tap
+            card.addEventListener('click', function() {
+                card.classList.toggle('is-flipped');
+                
+                // Create confetti if it's the first flip
+                if (card.classList.contains('is-flipped')) {
+                    createConfetti();
+                }
+            });
+            
+            function createConfetti() {
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    
+                    // Random position
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = -20 + 'px';
+                    
+                    // Random colors
+                    const colors = ['#ffcc00', '#ff4d88', '#4dff88', '#4d88ff', '#ff884d'];
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Random animation
+                    const duration = Math.random() * 3 + 2;
+                    confetti.style.animation = `fall ${duration}s linear forwards`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, duration * 1000);
+                }
+                
+                // Add CSS for falling animation
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes fall {
+                        0% { opacity: 1; transform: translateY(-20px) rotate(0deg); }
+                        100% { opacity: 0; transform: translateY(500px) rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Also flip on spacebar press
+            document.addEventListener('keyup', function(e) {
+                if (e.code === 'Space') {
+                    card.classList.toggle('is-flipped');
+                    
+                    if (card.classList.contains('is-flipped')) {
+                        createConfetti();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+  </html>
+  
